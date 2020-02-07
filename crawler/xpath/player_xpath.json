@@ -1,12 +1,12 @@
 {
   "no" : "//*[@id='pc_v_no']/text()",
   "team" : "//*[@id='pc_v_team']/text()",
-  "name" : "//*[@id='pc_v_name']/text()",
+  "name" : "//*[@id='pc_v_name']/text()[1]",
   "kana" : "//*[@id='pc_v_kana']/text()",
-  "position" : "//*[@id='pc_bio']/table/tbody/tr[1]/td/text()",
-  "bat_and_throw" : "//*[@id='pc_bio']/table/tbody/tr[2]/td/text()",
-  "height_and_weight" : "//*[@id='pc_bio']/table/tbody/tr[3]/td/text()",
-  "birth" : "//*[@id='pc_bio']/table/tbody/tr[4]/td/text()",
-  "carrer" : "//*[@id='pc_bio']/table/tbody/tr[5]/td/text()",
-  "draft" : "//*[@id='pc_bio']/table/tbody/tr[6]/td/text()"
+  "position" : "//*[@id='pc_bio']/table/tr[1]/td/text()",
+  "bat_and_throw" : "//*[@id='pc_bio']/table/tr[2]/td/text()",
+  "height_and_weight" : "//*[@id='pc_bio']/table/tr[3]/td/text()",
+  "birth" : "//*[@id='pc_bio']/table/tr[4]/td/text()",
+  "carrer" : "//*[@id='pc_bio']/table/tr[5]/td/text()",
+  "draft" : "//*[@id='pc_bio']/table/tr[6]/td/text()"
 }
