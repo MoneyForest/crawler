@@ -18,5 +18,3 @@ class Player(scrapy.Item):
     birth = scrapy.Field()
     carrer = scrapy.Field()
     draft = scrapy.Field()
-
-    pass
