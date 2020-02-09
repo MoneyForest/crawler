@@ -34,20 +34,23 @@ class PlayerSpider(scrapy.Spider):
 
     def crawl_player_url(self, response):
 
-        def parse_player_item(player, s):
+        def parse_player_item(player):
             with open('crawler/xpath/player_xpath.json', 'r') as f:
-                text = ''.join(response.xpath(json.load(f)[s]).extract())
-                player[s] = utils.stlip_space_crlf(text)
+                player_xpath_json = json.load(f)
+                for key in player_xpath_json.keys():
+                    val = ''.join(response.xpath(player_xpath_json[key]).extract())
+                    player[key] = utils.stlip_space_crlf(val)
+
+        def reshape_player_item(player):
+            player['npb_id'] = utils.reshape_npb_id(player['npb_id'])
+            player['height'] = utils.reshape_height(player['height'])
+            player['weight'] = utils.reshape_weight(player['weight'])
+            player['throw'] = utils.reshape_throw(player['throw'])
+            player['bat'] = utils.reshape_bat(player['bat'])
+            player['draft_year'] = utils.reshape_draft_year(player['draft_year'])
+            player['draft_no'] = utils.reshape_draft_no(player['draft_no'])
 
         player = Player()
-        parse_player_item(player, 'no')
-        parse_player_item(player, 'team')
-        parse_player_item(player, 'name')
-        parse_player_item(player, 'kana')
-        parse_player_item(player, 'position')
-        parse_player_item(player, 'bat_and_throw')
-        parse_player_item(player, 'height_and_weight')
-        parse_player_item(player, 'birth')
-        parse_player_item(player, 'carrer')
-        parse_player_item(player, 'draft')
-
+        parse_player_item(player)
+        reshape_player_item(player)
+        print(player)
