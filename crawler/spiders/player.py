@@ -2,7 +2,7 @@
 import scrapy
 import json
 from .. import utils
-from crawler.items import Player
+from crawler.player import Player
 
 class PlayerSpider(scrapy.Spider):
     name = 'player'
@@ -35,10 +35,10 @@ class PlayerSpider(scrapy.Spider):
     def crawl_player_url(self, response):
 
         def parse_player_item(player):
-            with open('crawler/xpath/player_xpath.json', 'r') as f:
-                player_xpath_json = json.load(f)
-                for key in player_xpath_json.keys():
-                    val = ''.join(response.xpath(player_xpath_json[key]).extract())
+            with open('crawler/xpath/player.json', 'r') as f:
+                player_json = json.load(f)
+                for key in player_json.keys():
+                    val = ''.join(response.xpath(player_json[key]).extract())
                     player[key] = utils.stlip_space_crlf(val)
 
         def reshape_player_item(player):
