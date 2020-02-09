@@ -8,12 +8,13 @@
 import scrapy
 
 class Player(scrapy.Item):
-    name = scrapy.Field()
-    kana = scrapy.Field()
-    age = scrapy.Field()
     no = scrapy.Field()
     team = scrapy.Field()
+    name = scrapy.Field()
+    kana = scrapy.Field()
     position = scrapy.Field()
-    bats = scrapy.Field()
-    throws = scrapy.Field()
-    pass
+    bat_and_throw = scrapy.Field()
+    height_and_weight = scrapy.Field()
+    birth = scrapy.Field()
+    carrer = scrapy.Field()
+    draft = scrapy.Field()
