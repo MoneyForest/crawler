@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 import os
+import datetime as dt
 
 def is_development():
     return os.environ['ENV'] == 'development'
@@ -28,3 +29,13 @@ def reshape_draft_year(s):
 
 def reshape_draft_no(s):
     return s.split('ドラフト')[1].split('位')[0]
+
+def reshape_born(s):
+    birthday = dt.datetime.strptime(s, '%Y年%m月%d日')
+    return birthday.strftime('%Y-%m-%d')
+
+def reshape_age(s):
+    birth_year = s.split('年')[0]
+    season_year = 2019
+    age = int(season_year) - int(birth_year)
+    return age

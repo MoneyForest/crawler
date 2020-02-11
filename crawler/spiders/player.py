@@ -45,8 +45,10 @@ class PlayerSpider(scrapy.Spider):
             player['npb_id'] = utils.reshape_npb_id(player['npb_id'])
             player['height'] = utils.reshape_height(player['height'])
             player['weight'] = utils.reshape_weight(player['weight'])
-            player['throw'] = utils.reshape_throw(player['throw'])
-            player['bat'] = utils.reshape_bat(player['bat'])
+            player['born'] = utils.reshape_born(player['born'])
+            player['age'] = utils.reshape_age(player['age'])
+            player['throws'] = utils.reshape_throw(player['throws'])
+            player['bats'] = utils.reshape_bat(player['bats'])
             player['draft_year'] = utils.reshape_draft_year(player['draft_year'])
             player['draft_no'] = utils.reshape_draft_no(player['draft_no'])
 
