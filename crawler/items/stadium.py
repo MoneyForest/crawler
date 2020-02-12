@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 import scrapy
 
+
 class Stadium(scrapy.Item):
     full_name = scrapy.Field()
     location = scrapy.Field()

@@ -4,6 +4,7 @@ import json
 from .. import utils
 from crawler.items.stadium import Stadium
 
+
 class StadiumSpider(scrapy.Spider):
     name = 'stadium'
 
@@ -18,7 +19,8 @@ class StadiumSpider(scrapy.Spider):
         STADIUM_URLS = response.xpath("//*[@id='st_list']/a/@href")
 
         for n, STADIUM_URL in enumerate(STADIUM_URLS):
-            if utils.is_development() and n > 0: return
+            if utils.is_development() and n > 0:
+                return
 
             URL = response.urljoin(STADIUM_URL.extract())
             yield scrapy.Request(URL, self.crawl_stadium_url)

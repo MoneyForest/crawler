@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 import scrapy
-import json
 from .. import utils
 from .. import player_utils
 from crawler.items.player import Player
+
 
 class PlayerSpider(scrapy.Spider):
     name = 'player'
@@ -20,7 +20,8 @@ class PlayerSpider(scrapy.Spider):
         TEAM_URLS = response.xpath("//*[@id='team_list']/div/ul/li/a/@href")
 
         for n, TEAM_URL in enumerate(TEAM_URLS):
-            if utils.is_development() and n > 0: return
+            if utils.is_development() and n > 0:
+                return
 
             URL = response.urljoin(TEAM_URL.extract())
             yield scrapy.Request(URL, self.crawl_team_url)
@@ -29,7 +30,8 @@ class PlayerSpider(scrapy.Spider):
         PLAYER_URLS = response.xpath("//*[@class='rosterRegister']/a/@href")
 
         for n, PLAYER_URL in enumerate(PLAYER_URLS):
-            if utils.is_development() and n > 0: return
+            if utils.is_development() and n > 0:
+                return
 
             URL = response.urljoin(PLAYER_URL.extract())
             yield scrapy.Request(URL, self.crawl_player_url)

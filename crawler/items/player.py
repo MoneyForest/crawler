@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 import scrapy
 
+
 class Player(scrapy.Item):
     npb_id = scrapy.Field()
     no = scrapy.Field()
@@ -19,4 +20,3 @@ class Player(scrapy.Item):
     draft = scrapy.Field()
     draft_year = scrapy.Field()
     draft_no = scrapy.Field()
-
