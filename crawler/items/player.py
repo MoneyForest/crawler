@@ -4,7 +4,8 @@ import scrapy
 class Player(scrapy.Item):
     npb_id = scrapy.Field()
     no = scrapy.Field()
-    team = scrapy.Field()
+    team_ja = scrapy.Field()
+    team_en = scrapy.Field()
     name = scrapy.Field()
     kana = scrapy.Field()
     position = scrapy.Field()
