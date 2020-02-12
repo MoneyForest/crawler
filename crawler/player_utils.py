@@ -11,8 +11,13 @@ def parse_player_params(player, response):
             player[key] = utils.stlip_space_crlf(val)
 
 
-def parse_player_params(player, response):
-    pass
+def parse_sanspo_player_params(player, response):
+    with open('crawler/xpath/player.json', 'r') as f:
+        player_json = json.load(f)
+        val = ''.join(response.xpath(player_json['blood_type']).extract())
+        player['blood_type'] = utils.stlip_space_crlf(val)
+        val = ''.join(response.xpath(player_json['salary']).extract())
+        player['salary'] = utils.stlip_space_crlf(val)
 
 
 def reshape_player_params(player):
@@ -26,6 +31,11 @@ def reshape_player_params(player):
     player['bats'] = reshape_bat(player['bats'])
     player['draft_year'] = reshape_draft_year(player['draft_year'])
     player['draft_no'] = reshape_draft_no(player['draft_no'])
+
+
+def reshape_sanspo_player_params(player):
+    player['blood_type'] = reshape_blood_type(player['blood_type'])
+    player['salary'] = reshape_salary(player['salary'])
 
 
 def reshape_npb_id(s):
@@ -71,6 +81,14 @@ def reshape_age(s):
     season_year = 2019
     age = int(season_year) - int(birth_year)
     return age
+
+
+def reshape_blood_type(s):
+    return s.split('型')[0]
+
+
+def reshape_salary(s):
+    return s.split('万円')[0].replace('億', '')
 
 
 def build_sanspo_url(team, no):

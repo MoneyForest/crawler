@@ -47,4 +47,8 @@ class PlayerSpider(scrapy.Spider):
         yield scrapy.Request(SANSPO_URL, self.crawl_sanspo_player_url)
 
     def crawl_sanspo_player_url(self, response):
-        pass
+
+        player_utils.parse_sanspo_player_params(self.player, response)
+        player_utils.reshape_sanspo_player_params(self.player)
+
+        print(self.player)

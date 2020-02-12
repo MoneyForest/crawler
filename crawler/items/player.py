@@ -20,3 +20,5 @@ class Player(scrapy.Item):
     draft = scrapy.Field()
     draft_year = scrapy.Field()
     draft_no = scrapy.Field()
+    blood_type = scrapy.Field()
+    salary = scrapy.Field()
