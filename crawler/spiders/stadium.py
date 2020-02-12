@@ -25,7 +25,7 @@ class StadiumSpider(scrapy.Spider):
 
     def crawl_stadium_url(self, response):
         def parse_stadium_item(stadium):
-            with open('xpath/stadium.json', 'r') as f:
+            with open('crawler/xpath/stadium.json', 'r') as f:
                 stadium_json = json.load(f)
                 for key in stadium_json.keys():
                     val = ''.join(response.xpath(stadium_json[key]).extract())
