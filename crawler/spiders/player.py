@@ -2,14 +2,16 @@
 import scrapy
 import json
 from .. import utils
+from .. import player_utils
 from crawler.items.player import Player
 
 class PlayerSpider(scrapy.Spider):
     name = 'player'
 
     def __init__(self):
-        self.allowed_domains = ['npb.jp']
+        self.allowed_domains = ['npb.jp', 'www.sanspo.com']
         self.start_urls = ['http://npb.jp/bis/teams/']
+        self.player = Player()
 
     def parse(self, response):
         yield scrapy.Request(self.start_urls[0], self.crawl_npb_url)
@@ -34,25 +36,13 @@ class PlayerSpider(scrapy.Spider):
 
     def crawl_player_url(self, response):
 
-        def parse_player_item(player):
-            with open('crawler/xpath/player.json', 'r') as f:
-                player_json = json.load(f)
-                for key in player_json.keys():
-                    val = ''.join(response.xpath(player_json[key]).extract())
-                    player[key] = utils.stlip_space_crlf(val)
+        player_utils.parse_player_params(self.player, response)
+        player_utils.reshape_player_params(self.player)
 
-        def reshape_player_item(player):
-            player['npb_id'] = utils.reshape_npb_id(player['npb_id'])
-            player['height'] = utils.reshape_height(player['height'])
-            player['weight'] = utils.reshape_weight(player['weight'])
-            player['born'] = utils.reshape_born(player['born'])
-            player['age'] = utils.reshape_age(player['age'])
-            player['throws'] = utils.reshape_throw(player['throws'])
-            player['bats'] = utils.reshape_bat(player['bats'])
-            player['draft_year'] = utils.reshape_draft_year(player['draft_year'])
-            player['draft_no'] = utils.reshape_draft_no(player['draft_no'])
+        SANSPO_URL = player_utils.build_sanspo_url(
+            self.player['team_en'], self.player['no'])
 
-        player = Player()
-        parse_player_item(player)
-        reshape_player_item(player)
-        print(player)
+        yield scrapy.Request(SANSPO_URL, self.crawl_sanspo_player_url)
+
+    def crawl_sanspo_player_url(self, response):
+        pass
