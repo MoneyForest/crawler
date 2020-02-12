@@ -1,7 +1,8 @@
 {
   "npb_id": "//*[@id='pc_v_photo']/img/@src",
   "no": "//*[@id='pc_v_no']/text()",
-  "team": "//*[@id='pc_v_team']/text()",
+  "team_ja": "//*[@id='pc_v_team']/text()",
+  "team_en": "//*[@id='pc_v_team']/text()",
   "name": "//*[@id='pc_v_name']/text()[1]",
   "kana": "//*[@id='pc_v_kana']/text()",
   "position": "//*[@id='pc_bio']/table/tr[1]/td/text()",
