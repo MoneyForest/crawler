@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import json
 import datetime as dt
 from . import utils
@@ -23,9 +24,6 @@ def reshape_player_params(player):
     player['bats'] = reshape_bat(player['bats'])
     player['draft_year'] = reshape_draft_year(player['draft_year'])
     player['draft_no'] = reshape_draft_no(player['draft_no'])
-
-
-def reshape_sanspo_player_params(player):
     player['blood_type'] = reshape_blood_type(player['blood_type'])
     player['salary'] = reshape_salary(player['salary'])
 
@@ -83,6 +81,8 @@ def reshape_salary(s):
     return s.split('万円')[0].replace('億', '')
 
 
-def build_sanspo_url(team, no):
-    base_url = "https://www.sanspo.com/baseball/professional/player/"
-    return base_url + team + "/" + no + ".html"
+def build_sanspo_url(team_ja, no):
+    with open('crawler/npb.json', 'r') as f:
+        npb_json = json.load(f)
+        base_url = "https://www.sanspo.com/baseball/professional/player/"
+        return base_url + npb_json[team_ja] + "/" + no + ".html"

@@ -39,16 +39,15 @@ class PlayerSpider(scrapy.Spider):
     def crawl_player_url(self, response):
 
         player_utils.parse_player_params(self.player, response)
-        player_utils.reshape_player_params(self.player)
 
         SANSPO_URL = player_utils.build_sanspo_url(
-            self.player['team_en'], self.player['no'])
+            self.player['team_ja'], self.player['no'])
 
         yield scrapy.Request(SANSPO_URL, self.crawl_sanspo_player_url)
 
     def crawl_sanspo_player_url(self, response):
 
         player_utils.parse_player_params(self.player, response)
-        player_utils.reshape_sanspo_player_params(self.player)
+        player_utils.reshape_player_params(self.player)
 
-        print(self.player)
+        yield(self.player)
