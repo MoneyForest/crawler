@@ -48,7 +48,7 @@ class PlayerSpider(scrapy.Spider):
 
     def crawl_sanspo_player_url(self, response):
 
-        player_utils.parse_sanspo_player_params(self.player, response)
+        player_utils.parse_player_params(self.player, response)
         player_utils.reshape_sanspo_player_params(self.player)
 
         print(self.player)

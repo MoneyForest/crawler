@@ -8,16 +8,8 @@ def parse_player_params(player, response):
         player_json = json.load(f)
         for key in player_json.keys():
             val = ''.join(response.xpath(player_json[key]).extract())
-            player[key] = utils.stlip_space_crlf(val)
-
-
-def parse_sanspo_player_params(player, response):
-    with open('crawler/xpath/player.json', 'r') as f:
-        player_json = json.load(f)
-        val = ''.join(response.xpath(player_json['blood_type']).extract())
-        player['blood_type'] = utils.stlip_space_crlf(val)
-        val = ''.join(response.xpath(player_json['salary']).extract())
-        player['salary'] = utils.stlip_space_crlf(val)
+            if len(val) != 0:
+                player[key] = utils.stlip_space_crlf(val)
 
 
 def reshape_player_params(player):
