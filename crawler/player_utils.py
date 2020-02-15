@@ -12,7 +12,7 @@ def parse_player_params(player, response):
             if len(val) != 0:
                 player[key] = utils.stlip_space_crlf(val)
             elif key not in player:
-                player[key] = ''
+                player[key] = ' '
 
 
 def reshape_player_params(player):
@@ -60,7 +60,7 @@ def reshape_draft_year(s):
 
 
 def reshape_draft_no(s):
-    if not s:
+    if s == ' ':
         return
     return s.split('ドラフト')[1].split('位')[0].split('巡目')[0]
 
@@ -74,7 +74,7 @@ def reshape_age(s):
     birth_year = s.split('年')[0]
     season_year = 2019
     age = int(season_year) - int(birth_year)
-    return age
+    return str(age)
 
 
 def reshape_blood_type(s):
