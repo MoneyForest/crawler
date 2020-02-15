@@ -60,9 +60,9 @@ def reshape_draft_year(s):
 
 
 def reshape_draft_no(s):
-    if len(s) == 0:
+    if not s:
         return
-    return s.split('ドラフト')[1].split('位')[0]
+    return s.split('ドラフト')[1].split('位')[0].split('巡目')[0]
 
 
 def reshape_born(s):
@@ -93,7 +93,4 @@ def build_sanspo_url(team_ja, no):
 
 
 def is_same_player(player, player_name):
-    print(player_name)
-    print(player['name'])
-    print(player_name in player['name'])
     return player_name in player['name']
