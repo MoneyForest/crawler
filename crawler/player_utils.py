@@ -11,6 +11,8 @@ def parse_player_params(player, response):
             val = ''.join(response.xpath(player_json[key]).extract())
             if len(val) != 0:
                 player[key] = utils.stlip_space_crlf(val)
+            elif key not in player:
+                player[key] = ''
 
 
 def reshape_player_params(player):
@@ -29,7 +31,7 @@ def reshape_player_params(player):
 
 
 def reshape_npb_id(s):
-    return s.split('_')[2].split('.')[0]
+    return s.split('/')[-1].split('_')[1].split('.')[0]
 
 
 def reshape_team_en(s):
@@ -58,6 +60,8 @@ def reshape_draft_year(s):
 
 
 def reshape_draft_no(s):
+    if len(s) == 0:
+        return
     return s.split('ドラフト')[1].split('位')[0]
 
 
@@ -86,3 +90,10 @@ def build_sanspo_url(team_ja, no):
         npb_json = json.load(f)
         base_url = "https://www.sanspo.com/baseball/professional/player/"
         return base_url + npb_json[team_ja] + "/" + no + ".html"
+
+
+def is_same_player(player, player_name):
+    print(player_name)
+    print(player['name'])
+    print(player_name in player['name'])
+    return player_name in player['name']

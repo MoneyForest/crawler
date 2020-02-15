@@ -30,22 +30,13 @@ class PlayerSpider(scrapy.Spider):
         PLAYER_URLS = response.xpath("//*[@class='rosterRegister']/a/@href")
 
         for n, PLAYER_URL in enumerate(PLAYER_URLS):
-            if utils.is_development() and n > 0:
+            if utils.is_development() and n > 5:
                 return
 
             URL = response.urljoin(PLAYER_URL.extract())
             yield scrapy.Request(URL, self.crawl_player_url)
 
     def crawl_player_url(self, response):
-
-        player_utils.parse_player_params(self.player, response)
-
-        SANSPO_URL = player_utils.build_sanspo_url(
-            self.player['team_ja'], self.player['no'])
-
-        yield scrapy.Request(SANSPO_URL, self.crawl_sanspo_player_url)
-
-    def crawl_sanspo_player_url(self, response):
 
         player_utils.parse_player_params(self.player, response)
         player_utils.reshape_player_params(self.player)
