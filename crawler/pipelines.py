@@ -1,11 +1,12 @@
 # -*- coding: utf-8 -*-
-
-# Define your item pipelines here
-#
-# Don't forget to add your pipeline to the ITEM_PIPELINES setting
-# See: https://docs.scrapy.org/en/latest/topics/item-pipeline.html
+import boto3
 
 
 class CrawlerPipeline(object):
+
     def process_item(self, item, spider):
-        return item
+        dynamodb = boto3.resource('dynamodb')
+        table = dynamodb.Table('player')
+        if 'Item' not in table.get_item(Key={'npb_id': item['npb_id'], 'team_en': item['team_en']}):
+            table.put_item(Item=dict(item))
+        return

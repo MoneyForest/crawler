@@ -30,7 +30,7 @@ class PlayerSpider(scrapy.Spider):
         PLAYER_URLS = response.xpath("//*[@class='rosterRegister']/a/@href")
 
         for n, PLAYER_URL in enumerate(PLAYER_URLS):
-            if utils.is_development() and n > 5:
+            if utils.is_development() and n > 0:
                 return
 
             URL = response.urljoin(PLAYER_URL.extract())
