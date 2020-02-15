@@ -74,7 +74,7 @@ def reshape_age(s):
     birth_year = s.split('年')[0]
     season_year = 2019
     age = int(season_year) - int(birth_year)
-    return age
+    return str(age)
 
 
 def reshape_blood_type(s):
