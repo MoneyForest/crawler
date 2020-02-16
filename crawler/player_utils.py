@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 import json
+import boto3
 import datetime as dt
 from . import utils
 
@@ -28,6 +29,13 @@ def reshape_player_params(player):
     player['draft_no'] = reshape_draft_no(player['draft_no'])
     player['blood_type'] = reshape_blood_type(player['blood_type'])
     player['salary'] = reshape_salary(player['salary'])
+
+
+def replace_none_to_space(player):
+    for key in player.keys():
+        if player[key] is None or len(player[key]) == 0:
+            player[key] = ' '
+    return player
 
 
 def reshape_npb_id(s):
@@ -60,9 +68,10 @@ def reshape_draft_year(s):
 
 
 def reshape_draft_no(s):
-    if s == ' ':
+    if len(s) == 1:
         return
-    return s.split('ドラフト')[1].split('位')[0].split('巡目')[0]
+    else:
+        return s.split('ドラフト')[1].split('位')[0].split('巡目')[0]
 
 
 def reshape_born(s):
@@ -85,12 +94,10 @@ def reshape_salary(s):
     return s.split('万円')[0].replace('億', '')
 
 
-def build_sanspo_url(team_ja, no):
-    with open('crawler/npb.json', 'r') as f:
-        npb_json = json.load(f)
-        base_url = "https://www.sanspo.com/baseball/professional/player/"
-        return base_url + npb_json[team_ja] + "/" + no + ".html"
+def init_player_table():
+    dynamodb = boto3.resource('dynamodb')
+    return dynamodb.Table('player')
 
 
-def is_same_player(player, player_name):
-    return player_name in player['name']
+def table_keys(player):
+    return {'npb_id': player['npb_id'], 'team_en': player['team_en']}
