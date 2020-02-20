@@ -15,6 +15,7 @@
   "carrer": "//*[@id='pc_bio']/table/tr[5]/td/text()",
   "draft_year": "//*[@id='pc_bio']/table/tr[6]/td/text()",
   "draft_no": "//*[@id='pc_bio']/table/tr[6]/td/text()",
-  "salary": "//*[@id='MeikanSection']/table[@class='BaseBallPlayerPlofile01']/tr[4]/td/text()",
-  "blood_type": "//*[@id='MeikanSection']/table[@class='BaseBallPlayerPlofile01']/tr[7]/td/text()"
+  "stats_p": "//*[@id='stats_p']/table[@id='tablefix_p']/*/*/*/text()",
+  "stats_b": "//*[@id='stats_b']/table[@id='tablefix_b']/*/*/*/text()",
+  "seasons": "//*[@id='stats_p']/table[@id='tablefix_p']/*/tr/*[@class='year']"
 }

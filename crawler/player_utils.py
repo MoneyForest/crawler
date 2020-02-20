@@ -9,9 +9,11 @@ def parse_player_params(player, response):
     with open('crawler/xpath/player.json', 'r') as f:
         player_json = json.load(f)
         for key in player_json.keys():
-            val = ''.join(response.xpath(player_json[key]).extract())
+            val = response.xpath(player_json[key]).extract()
+            if is_not_array_param(key):
+                val = utils.stlip_space_crlf(''.join(val))
             if len(val) != 0:
-                player[key] = utils.stlip_space_crlf(val)
+                player[key] = val
             elif key not in player:
                 player[key] = ' '
 
@@ -27,13 +29,12 @@ def reshape_player_params(player):
     player['bats'] = reshape_bat(player['bats'])
     player['draft_year'] = reshape_draft_year(player['draft_year'])
     player['draft_no'] = reshape_draft_no(player['draft_no'])
-    player['blood_type'] = reshape_blood_type(player['blood_type'])
-    player['salary'] = reshape_salary(player['salary'])
+    player['seasons'] = reshape_seasons(player['seasons'])
 
 
 def replace_none_to_space(player):
     for key in player.keys():
-        if player[key] is None or len(player[key]) == 0:
+        if player[key] is None:
             player[key] = ' '
     return player
 
@@ -81,7 +82,7 @@ def reshape_born(s):
 
 def reshape_age(s):
     birth_year = s.split('年')[0]
-    season_year = 2019
+    season_year = dt.datetime.today().year
     age = int(season_year) - int(birth_year)
     return str(age)
 
@@ -94,6 +95,10 @@ def reshape_salary(s):
     return s.split('万円')[0].replace('億', '')
 
 
+def reshape_seasons(list):
+    return len(list) - 2
+
+
 def init_player_table():
     dynamodb = boto3.resource('dynamodb')
     return dynamodb.Table('player')
@@ -101,3 +106,7 @@ def init_player_table():
 
 def table_keys(player):
     return {'npb_id': player['npb_id'], 'team_en': player['team_en']}
+
+
+def is_not_array_param(s):
+    return 'stats' not in s and 'seasons' not in s
