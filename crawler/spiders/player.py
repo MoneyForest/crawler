@@ -3,6 +3,7 @@ import scrapy
 from .. import utils
 from .. import player_utils
 from crawler.items.player import Player
+from .. import parse_stats as ps
 
 
 class PlayerSpider(scrapy.Spider):
@@ -24,7 +25,7 @@ class PlayerSpider(scrapy.Spider):
                 return
 
             URL = response.urljoin(TEAM_URL.extract())
-            yield scrapy.Request(URL, self.crawl_team_url)
+            yield scrapy.Request("http://npb.jp/bis/teams/rst_db.html", self.crawl_team_url)
 
     def crawl_team_url(self, response):
         PLAYER_URLS = response.xpath("//*[@class='rosterRegister']/a/@href")
@@ -37,8 +38,10 @@ class PlayerSpider(scrapy.Spider):
             yield scrapy.Request(URL, self.crawl_player_url)
 
     def crawl_player_url(self, response):
-
         player_utils.parse_player_params(self.player, response)
         player_utils.reshape_player_params(self.player)
+
+        ps.parse_stats_p(self.player, response)
+        ps.parse_stats_b(self.player, response)
 
         yield(self.player)
