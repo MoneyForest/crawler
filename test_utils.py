@@ -11,6 +11,11 @@ def test_is_development():
     assert not utils.is_development()
 
 
+def test_to_strip():
+    s = '\u3000・'
+    assert '  ' == utils.to_space(s)
+
+
 def test_stlip():
-    s = ' \u3000\r\n・'
+    s = ' \r\n'
     assert '' == utils.stlip(s)

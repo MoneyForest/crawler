@@ -11,7 +11,7 @@ def parse_player_params(player, response):
         for key in player_json.keys():
             val = response.xpath(player_json[key]).extract()
             if is_not_array_param(key):
-                val = utils.stlip(''.join(val))
+                val = utils.to_space(utils.stlip(''.join(val)))
             if len(val) != 0:
                 player[key] = val
             elif key not in player:
