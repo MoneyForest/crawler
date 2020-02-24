@@ -25,7 +25,7 @@ class PlayerSpider(scrapy.Spider):
                 return
 
             URL = response.urljoin(TEAM_URL.extract())
-            yield scrapy.Request("http://npb.jp/bis/teams/rst_db.html", self.crawl_team_url)
+            yield scrapy.Request(URL, self.crawl_team_url)
 
     def crawl_team_url(self, response):
         PLAYER_URLS = response.xpath("//*[@class='rosterRegister']/a/@href")
