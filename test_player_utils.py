@@ -1,6 +1,6 @@
 # -*- coding: utf-8 - *-
-from .items.player import Player
-from . import player_utils as pu
+from crawler.items.player import Player
+from crawler import player_utils as pu
 import datetime as dt
 
 

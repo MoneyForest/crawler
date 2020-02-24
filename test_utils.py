@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from . import utils
+from crawler import utils
 import os
 
 
