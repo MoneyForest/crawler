@@ -4,6 +4,7 @@ from .. import utils
 from .. import player_utils
 from crawler.items.player import Player
 from .. import parse_stats as ps
+import pdb
 
 
 class PlayerSpider(scrapy.Spider):
@@ -39,6 +40,7 @@ class PlayerSpider(scrapy.Spider):
 
     def crawl_player_url(self, response):
         player_utils.parse_player_params(self.player, response)
+        pdb.set_trace()
         player_utils.reshape_player_params(self.player)
 
         ps.parse_stats_p(self.player, response)

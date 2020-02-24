@@ -17,9 +17,9 @@ def parse_stats_p(player, response):
                     ip = response.xpath(BASE_XPATH + stats_p_json['ip1']).extract() + \
                         response.xpath(
                             BASE_XPATH + stats_p_json['ip2']).extract()
-                    dic['ip'] = utils.stlip_space_crlf(''.join(ip))
+                    dic['ip'] = utils.stlip(''.join(ip))
                     continue
-                dic[key] = utils.stlip_space_crlf(''.join(response.xpath(
+                dic[key] = utils.stlip(''.join(response.xpath(
                     BASE_XPATH + stats_p_json[key]).extract()))
 
         arr.append(dic)
@@ -35,7 +35,7 @@ def parse_stats_b(player, response):
             stats_b_json = json.load(f)
             dic = dict()
             for key in stats_b_json.keys():
-                dic[key] = utils.stlip_space_crlf(''.join(response.xpath(
+                dic[key] = utils.stlip(''.join(response.xpath(
                     BASE_XPATH + stats_b_json[key]).extract()))
 
         arr.append(dic)
