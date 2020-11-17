@@ -6,7 +6,7 @@ authors = ["ownweight1 <kanamorishuhei@gmail.com>"]
 
 [tool.poetry.dependencies]
 python = "^3.7"
-scrapy = "^1.8.0"
+scrapy = "^2.4.1"
 requests = "^2.22.0"
 flake8 = "^3.7.9"
 autopep8 = "^1.5"
